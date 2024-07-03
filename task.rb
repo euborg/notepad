@@ -45,6 +45,16 @@ class Task < Post
     deadline = "Крайний срок: #{@due_date.strftime('%Y.%m.%d')}"
     time_string = "Создано: #{@created_at.strftime('%Y.%m.%d, %H:%M:%S')} \n\r"
 
-    [deadline, @text, time_string]
+    return [deadline, @text, time_string]
+  end
+
+  def to_db_hash
+    return super.merge(
+      {
+        'type' => self.class.name,
+        'created_at' => @created_at.to_s
+      }
+    )
+
   end
 end
